@@ -1,0 +1,39 @@
+deployments:
+  default:
+    dockerimage: ubuntu
+    port_forwarding: 80:3000
+    copy_files:
+      - ~/.ssh/id_rsa ~/code/id_rsa
+      - ~/.ssh/id_rsa.pub ~/code/id_rsa.pub
+    build_steps:
+      - >
+        DEBIAN_FRONTEND=noninteractive apt-get update &&
+        DEBIAN_FRONTEND=noninteractive apt-get -y install
+        ruby-full gnupg wget ruby-bundler curl git
+      - wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+      - 'echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list'
+      - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+      - >
+        DEBIAN_FRONTEND=noninteractive apt-get update &&
+        DEBIAN_FRONTEND=noninteractive apt-get -y install mongodb-org nodejs
+      - cd /code
+      - bundle install
+      - mkdir ~/.ssh
+      - cp /code/id_rsa* ~/.ssh
+      - chmod 400 ~/.ssh/id_rsa
+      - chmod 600 ~/.ssh/id_rsa.pub
+      - squash-cmd--git clone git@github.com:wisedrette/django-react-front.git -b master --single-branch /code/frontend
+      - cd /code/frontend
+      - npm install
+    post_build_steps:
+      - cd /code
+      - bundle install
+      - npm install
+    launch_steps:
+      - service mongod start
+      - cd /code
+      - bundle exec ruby app.rb --host 0.0.0.0&
+      - cd /code/frontend
+      - npm start
+    subdomain_port_mapping:
+      - api:4567
