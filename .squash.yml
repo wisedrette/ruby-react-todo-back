@@ -1,9 +1,7 @@
 deployments:
   default:
     dockerimage: ubuntu
-    port_forwarding: 
-      - 80:3000
-      - 4567:4567
+    port_forwarding: 80:3000
     copy_files:
       - ~/.ssh/id_rsa ~/code/id_rsa
       - ~/.ssh/id_rsa.pub ~/code/id_rsa.pub
@@ -12,9 +10,7 @@ deployments:
         DEBIAN_FRONTEND=noninteractive apt-get update &&
         DEBIAN_FRONTEND=noninteractive apt-get -y install 
         ruby-full gnupg wget ruby-bundler curl git sudo 
-        build-essential
-      - wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add -
-      - 'echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" >> /etc/apt/sources.list.d/mongodb-org-4.2.list'
+        build-essential mongodb
       - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
       - >
         DEBIAN_FRONTEND=noninteractive apt-get update &&
@@ -35,7 +31,7 @@ deployments:
       - cd /code/frontend
       - npm install
     launch_steps:
-      - service mongod start
+      - service mongodb start
       - cd /code
       - bundle exec ruby app.rb &
       - cd /code/frontend
