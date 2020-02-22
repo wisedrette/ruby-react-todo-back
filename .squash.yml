@@ -33,7 +33,7 @@ deployments:
       - cd /code/frontend
       - npm install
     launch_steps:
-      - service mongod start
+      - service mongodb start
       - cd /code
       - bundle exec ruby app.rb &
       - cd /code/frontend
