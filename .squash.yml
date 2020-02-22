@@ -23,16 +23,20 @@ deployments:
       - chmod 600 ~/.ssh/id_rsa.pub
       - squash-cmd--git config --global core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
       - squash-cmd--git clone git@github.com:wisedrette/django-react-front.git -b master --single-branch /code/frontend
+      - cd /code
+      - bundle install
+      - cd /code/frontend
+      - npm install
+      - EXPOSE 4567
     post_build_steps:
       - cd /code
       - bundle install
-      - npm install
       - cd /code/frontend
       - npm install
     launch_steps:
       - service mongod start
       - cd /code
-      - bundle exec ruby app.rb --host 0.0.0.0&
+      - bundle exec ruby app.rb &
       - cd /code/frontend
       - npm start
     subdomain_port_mapping:
