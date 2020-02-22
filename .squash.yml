@@ -1,6 +1,6 @@
 deployments:
   default:
-    dockerimage: ubuntu
+    dockerimage: ubuntu:trusty
     port_forwarding: 
       - 80:3000
       - 4567:4567
