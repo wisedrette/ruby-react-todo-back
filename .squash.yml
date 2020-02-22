@@ -20,6 +20,7 @@ deployments:
       - cp /code/id_rsa* ~/.ssh
       - chmod 400 ~/.ssh/id_rsa
       - chmod 600 ~/.ssh/id_rsa.pub
+      - squash-cmd--git config --global core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
       - squash-cmd--git clone git@github.com:wisedrette/django-react-front.git -b master --single-branch /code/frontend
     post_build_steps:
       - cd /code
