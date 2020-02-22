@@ -8,8 +8,9 @@ deployments:
     build_steps:
       - >
         DEBIAN_FRONTEND=noninteractive apt-get update &&
-        DEBIAN_FRONTEND=noninteractive apt-get -y install
-        ruby-full gnupg wget ruby-bundler curl git sudo
+        DEBIAN_FRONTEND=noninteractive apt-get -y install 
+        ruby-full gnupg wget ruby-bundler curl git sudo 
+        build-essential
       - wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add -
       - 'echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" >> /etc/apt/sources.list.d/mongodb-org-4.2.list'
       - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
