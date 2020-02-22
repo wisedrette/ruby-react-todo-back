@@ -29,7 +29,6 @@ deployments:
       - bundle install
       - cd /code/frontend
       - npm install
-      - EXPOSE 4567
     post_build_steps:
       - cd /code
       - bundle install
@@ -41,5 +40,6 @@ deployments:
       - bundle exec ruby app.rb &
       - cd /code/frontend
       - npm start
+    run_options: -p 4567:4567
     subdomain_port_mapping:
       - api:4567
