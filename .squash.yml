@@ -16,18 +16,16 @@ deployments:
       - >
         DEBIAN_FRONTEND=noninteractive apt-get update &&
         DEBIAN_FRONTEND=noninteractive apt-get -y install mongodb-org nodejs
-      - cd /code
-      - bundle install
       - mkdir ~/.ssh
       - cp /code/id_rsa* ~/.ssh
       - chmod 400 ~/.ssh/id_rsa
       - chmod 600 ~/.ssh/id_rsa.pub
       - squash-cmd--git clone git@github.com:wisedrette/django-react-front.git -b master --single-branch /code/frontend
-      - cd /code/frontend
-      - npm install
     post_build_steps:
       - cd /code
       - bundle install
+      - npm install
+      - cd /code/frontend
       - npm install
     launch_steps:
       - service mongod start
