@@ -14,7 +14,7 @@ deployments:
       - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
       - >
         DEBIAN_FRONTEND=noninteractive apt-get update &&
-        DEBIAN_FRONTEND=noninteractive apt-get -y install mongodb-org nodejs
+        DEBIAN_FRONTEND=noninteractive apt-get -y install nodejs
       - mkdir ~/.ssh
       - cp /code/id_rsa* ~/.ssh
       - chmod 400 ~/.ssh/id_rsa
