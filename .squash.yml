@@ -48,8 +48,6 @@ deployments:
       - testcafe:
           scripts:
             - cd /code/frontend
-            - echo $SQUASH_DOMAIN
-            - PAGE=https://${SQUASH_DOMAIN}/ envsubst < test.template.js > test.js
             - xvfb-run testcafe firefox,chrome test.js
     run_options: -p 4567:4567
     subdomain_port_mapping:
