@@ -10,14 +10,15 @@ deployments:
         DEBIAN_FRONTEND=noninteractive apt-get update &&
         DEBIAN_FRONTEND=noninteractive apt-get -y install 
         ruby-full gnupg wget ruby-bundler curl git sudo 
-        build-essential mongodb
+        build-essential mongodb xvfb firefox gettext-base
       - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
       - >
         DEBIAN_FRONTEND=noninteractive apt-get update &&
-        DEBIAN_FRONTEND=noninteractive apt-get -y install nodejs xvfb firefox
+        DEBIAN_FRONTEND=noninteractive apt-get -y install nodejs
       - npm install -g testcafe
       - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
       - apt-get install -y ./google-chrome-stable_current_amd64.deb
+      - apt-get clean && rm -rf /var/lib/apt/lists/*
       - mkdir ~/.ssh
       - cp /code/id_rsa* ~/.ssh
       - chmod 400 ~/.ssh/id_rsa
@@ -41,8 +42,8 @@ deployments:
       - npm start
     deployment_page_commands:
       run tests:
-        - cd /code/frontend 
-        - ls -la 
+        - cd /code/frontend
+        - PAGE=https://${SQUASH_DOMAIN}/ envsubst < test.template.js > test.js
         - xvfb-run testcafe firefox,chrome test.js
     run_options: -p 4567:4567
     subdomain_port_mapping:
