@@ -14,7 +14,10 @@ deployments:
       - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
       - >
         DEBIAN_FRONTEND=noninteractive apt-get update &&
-        DEBIAN_FRONTEND=noninteractive apt-get -y install nodejs
+        DEBIAN_FRONTEND=noninteractive apt-get -y install nodejs xvfb firefox
+      - npm install -g testcafe
+      - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      - apt-get install -y ./google-chrome-stable_current_amd64.deb
       - mkdir ~/.ssh
       - cp /code/id_rsa* ~/.ssh
       - chmod 400 ~/.ssh/id_rsa
@@ -35,6 +38,7 @@ deployments:
       - cd /code
       - bundle exec ruby app.rb &
       - cd /code/frontend
+      - xvfb-run testcafe firefox,chrome test1.js
       - npm start
     run_options: -p 4567:4567
     subdomain_port_mapping:
