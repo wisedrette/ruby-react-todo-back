@@ -38,7 +38,7 @@ deployments:
       - cd /code
       - bundle exec ruby app.rb &
       - cd /code/frontend
-      - xvfb-run testcafe firefox,chrome test1.js
+      - xvfb-run testcafe firefox,chrome test.js
       - npm start
     run_options: -p 4567:4567
     subdomain_port_mapping:
