@@ -40,6 +40,10 @@ deployments:
       - bundle exec ruby app.rb &
       - cd /code/frontend
       - npm start
+    deployment_page_commands:
+      tests:
+        - cd /code/frontend
+        - bash launch_tests.sh
     pipelines:
       testcafe:
         scripts:
