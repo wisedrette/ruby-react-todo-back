@@ -44,6 +44,8 @@ deployments:
       tests:
         - cd /code/frontend
         - bash launch_tests.sh
+      testcafe:
+        - xvfb-run testcafe --skip-js-errors firefox,chrome test.js
     pipelines:
       - testcafe:
           scripts:
