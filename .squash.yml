@@ -43,11 +43,11 @@ deployments:
     deployment_page_commands:
       tests:
         - cd /code/frontend
-        - ""'PAGE=https://${SQUASH_DOMAIN}/ envsubst < test.template.js > test.js'""
+        - "'PAGE=https://${SQUASH_DOMAIN}/ envsubst < test.template.js > test.js'"
         - xvfb-run testcafe firefox,chrome test.js
       env:
-        - ""'echo "domain is $SQUASH_DOMAIN"'""
-        - ""'echo "branch id is $SQUASH_BRANCH_WITH_ID"'""
+        - "'echo "domain is $SQUASH_DOMAIN"'"
+        - "'echo "branch id is $SQUASH_BRANCH_WITH_ID"'"
     run_options: -p 4567:4567
     subdomain_port_mapping:
       - api:4567
