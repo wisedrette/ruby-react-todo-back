@@ -41,7 +41,7 @@ deployments:
       - npm start
     deployment_page_commands:
       run tests:
-        - cd /code/frontend && xvfb-run testcafe firefox,chrome test.js
+        - cd /code/frontend && ls -la && bash -c "xvfb-run testcafe firefox,chrome test.js"
     run_options: -p 4567:4567
     subdomain_port_mapping:
       - api:4567
