@@ -48,7 +48,7 @@ deployments:
       - testcafe:
           scripts:
             - cd /code/frontend
-            - xvfb-run testcafe firefox,chrome test.js
+            - xvfb-run testcafe --skip-js-errors firefox,chrome test.js
     run_options: -p 4567:4567
     subdomain_port_mapping:
       - api:4567
