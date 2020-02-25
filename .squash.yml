@@ -37,7 +37,7 @@ deployments:
       - cd /code/frontend
       - echo "launching"
       - npm start
-    wait_post_launch: 60
+    wait_post_launch: 90
     run_options: -p 4567:4567
     subdomain_port_mapping:
       - api:4567
