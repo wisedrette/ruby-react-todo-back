@@ -44,7 +44,7 @@ deployments:
     success_response_check:
       fallback: false
       urls:
-        - /
+        - /create/
     auto_deploy_on_commits: true
     auto_deploy_post_launch_commands:
       - cd /code/frontend
