@@ -53,7 +53,7 @@ deployments:
       - cd /code/frontend
       - xvfb-run testcafe --skip-js-errors firefox test.js
       - xvfb-run testcafe --skip-js-errors chrome test.js
-    wait_post_launch: 90
+    backend_wait: 90
     run_options: -p 4567:4567
     subdomain_port_mapping:
       - api:4567
