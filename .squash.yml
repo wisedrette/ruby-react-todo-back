@@ -41,6 +41,8 @@ deployments:
       - cd /code/frontend
       - npm start
     deployment_page_commands:
+      env:
+        - bash -c 'echo $SQUASH_DOMAIN'
       tests:
         - cd /code/frontend
         - bash launch_tests.sh
