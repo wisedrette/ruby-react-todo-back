@@ -52,6 +52,7 @@ deployments:
     auto_deploy_on_commits: true
     auto_deploy_post_launch_commands:
       - cd /code/frontend
+      - env
       - xvfb-run testcafe --skip-js-errors firefox test.js
       - xvfb-run testcafe --skip-js-errors chrome test.js
     run_options: -p 4567:4567
