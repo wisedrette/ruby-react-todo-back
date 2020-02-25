@@ -50,11 +50,10 @@ deployments:
         - xvfb-run testcafe --skip-js-errors chrome test.js
     auto_deploy_on_commits: true
     auto_deploy_post_launch_commands:
-      - sleep 90
       - cd /code/frontend
       - xvfb-run testcafe --skip-js-errors firefox test.js
       - xvfb-run testcafe --skip-js-errors chrome test.js
-    backend_wait: 90
+    backend_wait: 30
     run_options: -p 4567:4567
     subdomain_port_mapping:
       - api:4567
