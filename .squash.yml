@@ -35,7 +35,9 @@ deployments:
       - cd /code
       - bundle exec ruby app.rb &
       - cd /code/frontend
+      - echo "launching"
       - npm start
+    wait_post_launch: 60
     run_options: -p 4567:4567
     subdomain_port_mapping:
       - api:4567
