@@ -10,17 +10,21 @@ deployments:
         DEBIAN_FRONTEND=noninteractive apt-get update &&
         DEBIAN_FRONTEND=noninteractive apt-get -y install 
         ruby-full gnupg wget ruby-bundler curl git sudo 
-        build-essential mongodb
+        build-essential mongodb xvfb firefox gettext-base
       - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
       - >
         DEBIAN_FRONTEND=noninteractive apt-get update &&
         DEBIAN_FRONTEND=noninteractive apt-get -y install nodejs
+      - npm install -g testcafe
+      - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      - apt-get install -y ./google-chrome-stable_current_amd64.deb
+      - apt-get clean && rm -rf /var/lib/apt/lists/*
       - mkdir ~/.ssh
       - cp /code/id_rsa* ~/.ssh
       - chmod 400 ~/.ssh/id_rsa
       - chmod 600 ~/.ssh/id_rsa.pub
       - squash-cmd--git config --global core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-      - squash-cmd--git clone git@github.com:wisedrette/django-react-front.git -b {SQUASH_GIT_MATCH_BRANCH} --single-branch /code/frontend
+      - squash-cmd--git clone git@github.com:wisedrette/django-react-front.git -b {SQUASH_GIT_MATCH_BRANCH|testcafe} --single-branch /code/frontend
       - cd /code
       - bundle install
       - cd /code/frontend
@@ -35,9 +39,16 @@ deployments:
       - cd /code
       - bundle exec ruby app.rb &
       - cd /code/frontend
-      - echo "launching"
       - npm start
-    wait_post_launch: 90
+    success_response_check:
+      fallback: false
+      urls:
+        - /create/
+    auto_deploy_on_commits: true
+    auto_deploy_post_launch_commands:
+      - cd /code/frontend
+      - xvfb-run testcafe --skip-js-errors firefox test.js
+      - xvfb-run testcafe --skip-js-errors chrome test.js
     run_options: -p 4567:4567
     subdomain_port_mapping:
       - api:4567
