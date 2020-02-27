@@ -42,7 +42,7 @@ deployments:
       - npm start
     deployment_page_commands:
       tests:
-        - echo "domain is ${SQUASH_DOMAIN}"
+        - echo ${SQUASH_DOMAIN}
     success_response_check:
       fallback: false
       urls:
