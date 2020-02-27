@@ -54,7 +54,7 @@ deployments:
     subdomain_port_mapping:
       - api:4567
     pipelines:
-      default:
-        scripts:
-          - echo "domain is ${SQUASH_DOMAIN}"
+      - default:
+          scripts:
+            - echo "domain is ${SQUASH_DOMAIN}"
       
