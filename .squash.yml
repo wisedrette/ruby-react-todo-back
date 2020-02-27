@@ -60,5 +60,6 @@ deployments:
     pipelines:
       - default:
           scripts:
+            - cd /code/frontend
             - echo ${SQUASH_DOMAIN}
             - echo "domain is ${SQUASH_DOMAIN}"
