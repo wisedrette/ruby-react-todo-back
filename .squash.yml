@@ -40,6 +40,9 @@ deployments:
       - bundle exec ruby app.rb &
       - cd /code/frontend
       - npm start
+    deployment_page_commands:
+      tests:
+        - echo "domain is ${SQUASH_DOMAIN}"
     success_response_check:
       fallback: false
       urls:
@@ -57,4 +60,3 @@ deployments:
       - default:
           scripts:
             - echo "domain is ${SQUASH_DOMAIN}"
-      
