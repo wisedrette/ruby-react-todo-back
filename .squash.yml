@@ -59,4 +59,4 @@ deployments:
     pipelines:
       - default:
           scripts:
-            - echo "domain is ${SQUASH_DOMAIN}"
+            - echo ${SQUASH_DOMAIN}
