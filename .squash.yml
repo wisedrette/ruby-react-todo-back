@@ -51,6 +51,7 @@ deployments:
     auto_deploy_post_launch_commands:
       - cd /code/frontend
       - echo $SQUASH_DOMAIN
+      - echo "domain is ${SQUASH_DOMAIN}"      
       - HOSTNAME=${SQUASH_DOMAIN} xvfb-run testcafe --skip-js-errors firefox test.js
       - HOSTNAME=${SQUASH_DOMAIN} xvfb-run testcafe --skip-js-errors chrome test.js
     run_options: -p 4567:4567
@@ -60,3 +61,4 @@ deployments:
       - default:
           scripts:
             - echo ${SQUASH_DOMAIN}
+            - echo "domain is ${SQUASH_DOMAIN}"
