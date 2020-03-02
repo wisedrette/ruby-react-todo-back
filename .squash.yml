@@ -25,8 +25,7 @@ deployments:
       - chmod 600 ~/.ssh/id_rsa.pub
       - squash-cmd--git config --global core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
       - squash-cmd--git clone git@github.com:wisedrette/django-react-front.git -b {SQUASH_GIT_MATCH_BRANCH|testcafe} --single-branch /code/frontend
-      - cd /code
-      - bundle install
+      - cd /code && bundle install
       - cd /code/frontend
       - npm install
     post_build_steps:
